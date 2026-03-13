@@ -1,11 +1,15 @@
-#![allow(dead_code)]
+#![allow(warnings)]
 #![allow(unused_imports)]
+use rustyline::DefaultEditor;
+use rustyline::error::ReadlineError;
 
 use std::path::{PathBuf, Path};
+
 use clap::{Parser};
 
 mod node;
 mod create;
+mod input;
 
 #[derive(Parser, Debug)]  
 struct Args {
@@ -15,10 +19,8 @@ struct Args {
 }
 
 fn main() {
-    // let args = Args::parse();
-    // let absolute_path = std::fs::canonicalize(&args.path)
-    //     .expect("Failed to resolve path");
-    // 
-    // println!("Absolute path: {:?}", absolute_path);
+    let mut rl = DefaultEditor::new().unwrap();
+    let command = input::read_command(&mut rl, "HAMZA".to_string());
+
 }
 
