@@ -2,10 +2,8 @@ use rustyline::error::ReadlineError;
 use rustyline::DefaultEditor;
 const ARROW: char = '\u{21B3}';
 
-pub fn read_command(
-    rl: &mut DefaultEditor,
-    current_folder: String,
-) -> Result<String, ReadlineError> {
+pub fn read_command(current_folder: &str) -> Result<String, ReadlineError> {
+    let mut rl = DefaultEditor::new()?;
     let mut buffer = String::new();
     let root_indent = current_folder.len() / 2;
     let mut indent_stack: Vec<usize> = vec![root_indent];
