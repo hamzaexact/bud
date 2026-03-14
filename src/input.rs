@@ -2,7 +2,10 @@ use rustyline::error::ReadlineError;
 use rustyline::DefaultEditor;
 const ARROW: char = '\u{21B3}';
 
-pub fn read_command(rl: &mut DefaultEditor, current_folder: String) -> Result<String, ReadlineError> {
+pub fn read_command(
+    rl: &mut DefaultEditor,
+    current_folder: String,
+) -> Result<String, ReadlineError> {
     let mut buffer = String::new();
     let root_indent = current_folder.len() / 2;
     let mut indent_stack: Vec<usize> = vec![root_indent];
@@ -27,7 +30,11 @@ pub fn read_command(rl: &mut DefaultEditor, current_folder: String) -> Result<St
             indent_stack.pop();
         } else if trimmed.ends_with(':') {
             let name = trimmed.trim_end_matches(':');
-indent_stack.push(indent + (name.len() + 1) / 2);
+
+            // Indent start with Folder.name().len() / 2;
+            // Next indext = PrevIndent + (PrevFolder.name.len()+1);
+
+            indent_stack.push(indent + (name.len() + 1) / 2);
         }
     }
 }
