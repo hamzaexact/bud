@@ -36,7 +36,7 @@ impl<'a> Builder<'a> {
                     }
 
                     match self.chars.peek() {
-                        Some(&':') => {
+                        Some(':') => {
                             self.next_char();
                             let next_path = path.join(&word);
                             fs::create_dir(&next_path).expect("Could not create folder");
